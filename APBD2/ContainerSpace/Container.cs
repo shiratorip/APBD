@@ -1,5 +1,8 @@
-﻿namespace ContainerSpace
+﻿using APBD2.ContainerSpace;
+
+namespace ContainerSpace
 {
+
     internal class Container
     {
         private double cargoWeightKg;
@@ -26,6 +29,23 @@
         {
             lastNumber++;
             return $"CON-C-{lastNumber}";
+        }
+
+        public void UnloadCargo()
+        {
+            cargoWeightKg = 0;
+            Console.WriteLine("Cargo unloaded successfully.");
+        }
+
+        public void LoadCargo(double cargoWeight)
+        {
+            if (cargoWeight > maxLoadCapacityKg)
+            {
+                throw new OverfillException("Cargo weight exceeds container's maximum load capacity.");
+            }
+
+            cargoWeightKg = cargoWeight;
+            Console.WriteLine($"Cargo loaded successfully with a weight of {cargoWeightKg} kg.");
         }
 
         public override string ToString()
