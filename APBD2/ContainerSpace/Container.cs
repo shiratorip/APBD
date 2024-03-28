@@ -28,7 +28,7 @@ namespace ContainerSpace
         protected virtual string GenerateSerialNumber()
         {
             lastNumber++;
-            return $"CON-C-{lastNumber}";
+            return $"CON-DEFAULT-{lastNumber}";
         }
 
         public virtual void UnloadCargo()
