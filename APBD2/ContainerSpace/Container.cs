@@ -5,14 +5,14 @@ namespace ContainerSpace
 
     internal class Container
     {
-        private double cargoWeightKg;
-        private double heightCm;
-        private double ownWeightKg;
-        private double depthCm;
-        private string serialNumber;
-        private double maxLoadCapacityKg;
+        protected double cargoWeightKg;
+        protected double heightCm;
+        protected double ownWeightKg;
+        protected double depthCm;
+        protected string serialNumber;
+        protected double maxLoadCapacityKg;
 
-        private static int lastNumber = 0;
+        protected static int lastNumber = 0;
 
         public Container(double cargoWeightKg, double heightCm, double ownWeightKg, double depthCm, double maxLoadCapacityKg)
         {
@@ -25,7 +25,7 @@ namespace ContainerSpace
             this.serialNumber = GenerateSerialNumber();
         }
 
-        private string GenerateSerialNumber()
+        protected virtual string GenerateSerialNumber()
         {
             lastNumber++;
             return $"CON-C-{lastNumber}";
@@ -37,7 +37,7 @@ namespace ContainerSpace
             Console.WriteLine("Cargo unloaded successfully.");
         }
 
-        public void LoadCargo(double cargoWeight)
+        public virtual void LoadCargo(double cargoWeight)
         {
             if (cargoWeight > maxLoadCapacityKg)
             {
