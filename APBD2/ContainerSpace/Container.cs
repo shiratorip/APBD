@@ -48,6 +48,14 @@ namespace ContainerSpace
             Console.WriteLine($"Cargo loaded successfully with a weight of {cargoWeightKg} kg.");
         }
 
+        public string getSerialNumber()
+        {
+            return this.serialNumber;
+        }
+        internal double getTotalWeight()
+        {
+            return cargoWeightKg + ownWeightKg;
+        }
         public override string ToString()
         {
             return $"""
@@ -60,5 +68,7 @@ namespace ContainerSpace
 
                 """;
         }
+
+
     }
 }
