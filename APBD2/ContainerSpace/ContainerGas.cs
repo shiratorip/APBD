@@ -28,6 +28,12 @@ namespace APBD2.ContainerSpace
             Console.WriteLine($"Cargo loaded successfully with a weight of {cargoWeightKg} kg.");
         }
 
+        public override void UnloadCargo()
+        {
+            cargoWeightKg = cargoWeightKg*0.05;
+            Console.WriteLine($"Cargo unloaded successfully. Cargo weight is {cargoWeightKg} kg");
+        }
+
         public void NotifyDangerousSituation(string containerSerialNumber)
         {
             Console.WriteLine($"Potentially DANGEROUS situation detected in Gas container {containerSerialNumber}.");

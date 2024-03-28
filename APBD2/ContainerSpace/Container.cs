@@ -31,7 +31,7 @@ namespace ContainerSpace
             return $"CON-C-{lastNumber}";
         }
 
-        public void UnloadCargo()
+        public virtual void UnloadCargo()
         {
             cargoWeightKg = 0;
             Console.WriteLine("Cargo unloaded successfully.");
