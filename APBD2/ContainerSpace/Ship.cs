@@ -14,7 +14,7 @@ namespace APBD2.ContainerSpace
         protected static int lastNumber = 0;
 
         List<Container> containerList = new List<Container>();
-        //TODO unload containers, transport from one ship to another add load with List<Container>, change one container with another, 
+        //TODO transport from one ship to another, change one container with another
         public Ship(double maxSpeed, int maxNumberOfContainers, double maxWeightToTransport)
         {
             this.maxSpeed = maxSpeed;
