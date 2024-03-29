@@ -23,7 +23,7 @@ namespace ContainerSpace
             this.maxLoadCapacityKg = maxLoadCapacityKg;
 
             this.serialNumber = GenerateSerialNumber();
-            AddContainerOnStation(this);
+            this.AddContainerOnStation();
         }
 
         protected virtual string GenerateSerialNumber()
@@ -35,11 +35,11 @@ namespace ContainerSpace
         {
             return containerOnStationList.Find(container => container.serialNumber == serialNumber);   
         }
-        public void AddContainerOnStation(Container container)
+        public void AddContainerOnStation()
         {
             containerOnStationList.Add(this);
         }
-        public void RemoveContainerFromStation(Container container)
+        public void RemoveContainerFromStation()
         {
             containerOnStationList.Remove(this);
         }

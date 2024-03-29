@@ -47,9 +47,17 @@ namespace APBD2.ContainerSpace
 
             foreach (Container container in containers)
             {
+                
                 this.containerList.Add(container);
+                container.RemoveContainerFromStation();
                 totalCurrentWeight += container.getTotalWeight();
             }
+        } 
+        public void UnloadContainerFromShip(Container container)
+        {
+            containerList.Remove(container);
+            container.AddContainerOnStation();
+            totalCurrentWeight-= container.getTotalWeight();
         }
         public override string ToString()
         {
