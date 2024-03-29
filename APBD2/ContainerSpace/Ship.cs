@@ -10,10 +10,11 @@ namespace APBD2.ContainerSpace
         protected double maxWeightToTransport;
         protected double totalCurrentWeight;
         protected string shipID;
+        protected List<Container> containerList = new List<Container>();
+
 
         protected static int lastNumber = 0;
 
-        List<Container> containerList = new List<Container>();
         //TODO transport from one ship to another, change one container with another
         public Ship(double maxSpeed, int maxNumberOfContainers, double maxWeightToTransport)
         {
@@ -58,6 +59,17 @@ namespace APBD2.ContainerSpace
             containerList.Remove(container);
             container.AddContainerOnStation();
             totalCurrentWeight-= container.getTotalWeight();
+        }
+        public void TransportToAnotherShip(Ship ship, Container container)
+        {
+            if (!this.containerList.Contains(container))
+            {
+                Console.WriteLine($"There is no {container.getSerialNumber} on this ship {this.shipID}");
+                return;
+            }
+            ship.LoadContainer(container);
+            if (!ship.containerList.Contains(container)) return;
+            this.containerList.Remove(container);
         }
         public override string ToString()
         {
