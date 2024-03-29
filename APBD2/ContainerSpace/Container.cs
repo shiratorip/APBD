@@ -13,7 +13,7 @@ namespace ContainerSpace
         protected double maxLoadCapacityKg;
 
         protected static int lastNumber = 0;
-
+        protected static List<Container> containerOnStationList = new List<Container>();
         public Container(double cargoWeightKg, double heightCm, double ownWeightKg, double depthCm, double maxLoadCapacityKg)
         {
             this.cargoWeightKg = cargoWeightKg;
@@ -23,6 +23,7 @@ namespace ContainerSpace
             this.maxLoadCapacityKg = maxLoadCapacityKg;
 
             this.serialNumber = GenerateSerialNumber();
+            AddContainerOnStation(this);
         }
 
         protected virtual string GenerateSerialNumber()
@@ -30,7 +31,18 @@ namespace ContainerSpace
             lastNumber++;
             return $"CON-DEFAULT-{lastNumber}";
         }
-
+        public Container GetContainerFromStation(string serialNumber)
+        {
+            return containerOnStationList.Find(container => container.serialNumber == serialNumber);   
+        }
+        public void AddContainerOnStation(Container container)
+        {
+            containerOnStationList.Add(this);
+        }
+        public void RemoveContainerFromStation(Container container)
+        {
+            containerOnStationList.Remove(this);
+        }
         public virtual void UnloadCargo()
         {
             cargoWeightKg = 0;

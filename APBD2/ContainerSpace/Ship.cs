@@ -29,15 +29,27 @@ namespace APBD2.ContainerSpace
             return $"Ship-{lastNumber}";
         }
 
-        public void LoadContainer(Container container)
+        public void LoadContainer(params Container[] containers)
         {
-            if(this.containerList.Count>= this.maxNumberOfContainers)
+            int totalContainers = containers.Length;
+            double totalWeightToAdd = 0;
+
+            foreach (Container container in containers)
             {
-                Console.WriteLine($"No space on the ship. Container {container.getSerialNumber} wasn't loaded on the ship.");
+                totalWeightToAdd += container.getTotalWeight();
             }
-            this.containerList.Add(container);
-            totalCurrentWeight += container.getTotalWeight();
-            
+
+            if (this.containerList.Count + totalContainers > this.maxNumberOfContainers || totalCurrentWeight + totalWeightToAdd > maxWeightToTransport)
+            {
+                Console.WriteLine($"No space on the ship. Containers weren't loaded on the ship.");
+                return;
+            }
+
+            foreach (Container container in containers)
+            {
+                this.containerList.Add(container);
+                totalCurrentWeight += container.getTotalWeight();
+            }
         }
         public override string ToString()
         {
@@ -48,7 +60,7 @@ namespace APBD2.ContainerSpace
                     Containers loaded:
 
                 """;
-            foreach(Container container in containerList)
+            foreach (Container container in containerList)
             {
                 shipID += container;
             }
