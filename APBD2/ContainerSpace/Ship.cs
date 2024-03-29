@@ -15,7 +15,7 @@ namespace APBD2.ContainerSpace
 
         protected static int lastNumber = 0;
 
-        //TODO transport from one ship to another, change one container with another
+        //TODO change one container with another
         public Ship(double maxSpeed, int maxNumberOfContainers, double maxWeightToTransport)
         {
             this.maxSpeed = maxSpeed;
@@ -70,6 +70,23 @@ namespace APBD2.ContainerSpace
             ship.LoadContainer(container);
             if (!ship.containerList.Contains(container)) return;
             this.containerList.Remove(container);
+        }
+        public void ReplaceContainersBetweenShips(Container container1, Ship ship2, Container container2)
+        {
+            bool totalWeightCheckFirstShip = this.totalCurrentWeight - container1.getTotalWeight() + container2.getTotalWeight() < this.maxWeightToTransport;
+            bool totalWeightCheckSecondShip = ship2.totalCurrentWeight - container2.getTotalWeight() + container1.getTotalWeight() < ship2.maxWeightToTransport;
+
+            if (totalWeightCheckFirstShip && totalWeightCheckSecondShip)
+            {
+                this.UnloadContainerFromShip(container1);
+                ship2.UnloadContainerFromShip(container2);
+                this.LoadContainer(container2);
+                ship2.LoadContainer(container1);
+            }
+            else
+            {
+                Console.WriteLine("REPLACEMENT didn't work");
+            }
         }
         public override string ToString()
         {
