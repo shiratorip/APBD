@@ -7,7 +7,6 @@ Container containerLiquidsDangerous = new ContainerLiquids(0, 200, 100, 150, 100
 Container containerGas = new ContainerGas(0, 200, 100, 150, 10000, 10);
 Container con1 = new ContainerLiquids(0, 200, 100, 150, 10000, true);
 Container con2 = new ContainerLiquids(0, 200, 100, 150, 10000, true);
-Console.WriteLine(con1);
 
 ContainerCold.AddProductToDictionary("Bananas", 13.3);
 ContainerCold.AddProductToDictionary("Chocolate", 18);
