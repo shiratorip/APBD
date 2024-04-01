@@ -11,9 +11,11 @@ namespace ContainerSpace
         protected double depthCm;
         protected string serialNumber;
         protected double maxLoadCapacityKg;
+        protected string place;
 
         protected static int lastNumber = 0;
         protected static List<Container> containerOnStationList = new List<Container>();
+        
         public Container(double cargoWeightKg, double heightCm, double ownWeightKg, double depthCm, double maxLoadCapacityKg)
         {
             this.cargoWeightKg = cargoWeightKg;
@@ -21,6 +23,7 @@ namespace ContainerSpace
             this.ownWeightKg = ownWeightKg;
             this.depthCm = depthCm;
             this.maxLoadCapacityKg = maxLoadCapacityKg;
+            this.place = "";
 
             this.serialNumber = GenerateSerialNumber();
             this.AddContainerOnStation();
@@ -43,6 +46,10 @@ namespace ContainerSpace
         {
             containerOnStationList.Remove(this);
         }
+        public bool IsOnStation()
+        {
+            return containerOnStationList.Contains(this);
+        }
         public virtual void UnloadCargo()
         {
             cargoWeightKg = 0;
@@ -60,11 +67,11 @@ namespace ContainerSpace
             Console.WriteLine($"Cargo loaded successfully with a weight of {cargoWeightKg} kg.");
         }
 
-        public string getSerialNumber()
+        public string GetSerialNumber()
         {
             return this.serialNumber;
         }
-        internal double getTotalWeight()
+        internal double GetTotalWeight()
         {
             return cargoWeightKg + ownWeightKg;
         }

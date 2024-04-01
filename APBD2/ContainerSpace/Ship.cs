@@ -12,10 +12,8 @@ namespace APBD2.ContainerSpace
         protected string shipID;
         protected List<Container> containerList = new List<Container>();
 
-
         protected static int lastNumber = 0;
 
-        //TODO change one container with another
         public Ship(double maxSpeed, int maxNumberOfContainers, double maxWeightToTransport)
         {
             this.maxSpeed = maxSpeed;
@@ -31,40 +29,49 @@ namespace APBD2.ContainerSpace
         }
 
         public void LoadContainer(params Container[] containers)
+{
+    int totalContainers = containers.Length;
+    double totalWeightToAdd = 0;
+
+    foreach (Container container in containers)
+    {
+        if (!container.IsOnStation())
         {
-            int totalContainers = containers.Length;
-            double totalWeightToAdd = 0;
+            Console.WriteLine($"Container {container.GetSerialNumber()} cannot be loaded because it's not on the station.");
+            totalContainers--;
+            continue;
+        }
+        totalWeightToAdd += container.GetTotalWeight();
+    }
 
-            foreach (Container container in containers)
-            {
-                totalWeightToAdd += container.getTotalWeight();
-            }
+    if (this.containerList.Count + totalContainers > this.maxNumberOfContainers || totalCurrentWeight + totalWeightToAdd > maxWeightToTransport)
+    {
+        Console.WriteLine($"No space on the ship. Some containers weren't loaded on the ship.");
+        return;
+    }
 
-            if (this.containerList.Count + totalContainers > this.maxNumberOfContainers || totalCurrentWeight + totalWeightToAdd > maxWeightToTransport)
-            {
-                Console.WriteLine($"No space on the ship. Containers weren't loaded on the ship.");
-                return;
-            }
-
-            foreach (Container container in containers)
-            {
-                
-                this.containerList.Add(container);
-                container.RemoveContainerFromStation();
-                totalCurrentWeight += container.getTotalWeight();
-            }
-        } 
+    foreach (Container container in containers)
+    {
+        if (!container.IsOnStation())
+        {
+                    continue;
+        }
+        this.containerList.Add(container);
+        container.RemoveContainerFromStation();
+        totalCurrentWeight += container.GetTotalWeight();
+    }
+} 
         public void UnloadContainerFromShip(Container container)
         {
             containerList.Remove(container);
             container.AddContainerOnStation();
-            totalCurrentWeight-= container.getTotalWeight();
+            totalCurrentWeight-= container.GetTotalWeight();
         }
         public void TransportToAnotherShip(Ship ship, Container container)
         {
             if (!this.containerList.Contains(container))
             {
-                Console.WriteLine($"There is no {container.getSerialNumber} on this ship {this.shipID}");
+                Console.WriteLine($"There is no {container.GetSerialNumber()} on this ship {this.shipID}");
                 return;
             }
             ship.LoadContainer(container);
@@ -73,8 +80,8 @@ namespace APBD2.ContainerSpace
         }
         public void ReplaceContainersBetweenShips(Container container1, Ship ship2, Container container2)
         {
-            bool totalWeightCheckFirstShip = this.totalCurrentWeight - container1.getTotalWeight() + container2.getTotalWeight() < this.maxWeightToTransport;
-            bool totalWeightCheckSecondShip = ship2.totalCurrentWeight - container2.getTotalWeight() + container1.getTotalWeight() < ship2.maxWeightToTransport;
+            bool totalWeightCheckFirstShip = this.totalCurrentWeight - container1.GetTotalWeight() + container2.GetTotalWeight() < this.maxWeightToTransport;
+            bool totalWeightCheckSecondShip = ship2.totalCurrentWeight - container2.GetTotalWeight() + container1.GetTotalWeight() < ship2.maxWeightToTransport;
 
             if (totalWeightCheckFirstShip && totalWeightCheckSecondShip)
             {
@@ -91,6 +98,7 @@ namespace APBD2.ContainerSpace
         public override string ToString()
         {
             string shipString = $"""
+                ______________________
                 {shipID}
                 Max amount of Containers: {maxNumberOfContainers}
                 Amount of Containers loaded: {containerList.Count}
@@ -104,6 +112,7 @@ namespace APBD2.ContainerSpace
             shipString += $"""
                 Max weight: {maxWeightToTransport}
                 Total weight on board: {totalCurrentWeight}
+                ______________________
                 """;
             return shipString;
         }

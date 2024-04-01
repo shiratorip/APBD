@@ -21,7 +21,7 @@ namespace APBD2.ContainerSpace
             return $"CON-C-{lastNumber}";
         }
 
-        public void AddProductToDictionary(string typeOfProduct, double minTemperature)
+        public static void AddProductToDictionary(string typeOfProduct, double minTemperature)
         {
             productDictionary[typeOfProduct] = minTemperature;
         }
