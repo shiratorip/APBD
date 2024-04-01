@@ -15,7 +15,7 @@ namespace APBD2.ContainerSpace
             return $"CON-G-{lastNumber}";
         }
 
-        public override void LoadCargo(double cargoWeight)
+        public override void LoadCargo(double cargoWeight, string t)
         {
             if (cargoWeight > maxLoadCapacityKg)
             {

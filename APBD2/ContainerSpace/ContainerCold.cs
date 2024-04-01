@@ -25,9 +25,11 @@ namespace APBD2.ContainerSpace
         {
             productDictionary[typeOfProduct] = minTemperature;
         }
-
-        public void LoadCargo(double cargoWeight, string typeOfProduct)
-        {
+        
+        public override void LoadCargo(double cargoWeight, string typeOfProduct="default-1")
+        {   
+            if (typeOfProduct.Equals("default-1"))typeOfProduct = this.typeOfProduct;
+            
             if (cargoWeight > maxLoadCapacityKg)
             {
                 throw new OverfillException("Cargo weight exceeds container's maximum load capacity.");
@@ -35,7 +37,7 @@ namespace APBD2.ContainerSpace
 
             if (!productDictionary.ContainsKey(typeOfProduct) || !this.typeOfProduct.Equals(typeOfProduct))
             {
-                Console.WriteLine("Container wasn't loaded. Check product type.");
+                Console.WriteLine("Container wasn't loaded. Check product type or product Dictionary.");
                 return;
             }
             if (this.cargoWeightKg == 0 && !this.typeOfProduct.Equals(typeOfProduct))

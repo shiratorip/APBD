@@ -67,16 +67,22 @@ namespace APBD2.ContainerSpace
             container.AddContainerOnStation();
             totalCurrentWeight-= container.GetTotalWeight();
         }
-        public void TransportToAnotherShip(Ship ship, Container container)
+        public void ExchangeContainerFromStation(string containerSerialNumberOnShip, Container container2)
         {
+            Container container = Container.SearchBySerialNumber(containerSerialNumberOnShip);
             if (!this.containerList.Contains(container))
             {
                 Console.WriteLine($"There is no {container.GetSerialNumber()} on this ship {this.shipID}");
                 return;
             }
-            ship.LoadContainer(container);
-            if (!ship.containerList.Contains(container)) return;
-            this.containerList.Remove(container);
+            if(!Container.CheckIfContainerOnStation(container2)) {
+                Console.WriteLine($"{container2 .GetSerialNumber()}is not on a station");
+                return;
+            }
+            this.UnloadContainerFromShip(container);
+            this.LoadContainer(container2);
+            Console.WriteLine($"moved container {container.GetSerialNumber()} to station and {container2.GetSerialNumber()} on ship {this.shipID}");
+
         }
         public void ReplaceContainersBetweenShips(Container container1, Ship ship2, Container container2)
         {
@@ -89,11 +95,17 @@ namespace APBD2.ContainerSpace
                 ship2.UnloadContainerFromShip(container2);
                 this.LoadContainer(container2);
                 ship2.LoadContainer(container1);
+                Console.WriteLine($"Replaced {container1.GetSerialNumber()} from {GetShipID(this)} and {container2.GetSerialNumber()} from {GetShipID(ship2)}");
+                return;
             }
             else
             {
                 Console.WriteLine("REPLACEMENT didn't work");
             }
+        }
+        public static string GetShipID(Ship ship)
+        {
+            return ship.shipID;
         }
         public override string ToString()
         {
@@ -107,7 +119,7 @@ namespace APBD2.ContainerSpace
                 """;
             foreach (Container container in containerList)
             {
-                shipID += container;
+                shipString += container;
             }
             shipString += $"""
                 Max weight: {maxWeightToTransport}

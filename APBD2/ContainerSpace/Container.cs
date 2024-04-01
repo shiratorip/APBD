@@ -15,7 +15,8 @@ namespace ContainerSpace
 
         protected static int lastNumber = 0;
         protected static List<Container> containerOnStationList = new List<Container>();
-        
+        protected static List<Container> allContainers = new List<Container>();
+
         public Container(double cargoWeightKg, double heightCm, double ownWeightKg, double depthCm, double maxLoadCapacityKg)
         {
             this.cargoWeightKg = cargoWeightKg;
@@ -27,6 +28,7 @@ namespace ContainerSpace
 
             this.serialNumber = GenerateSerialNumber();
             this.AddContainerOnStation();
+            allContainers.Add(this);
         }
 
         protected virtual string GenerateSerialNumber()
@@ -46,6 +48,21 @@ namespace ContainerSpace
         {
             containerOnStationList.Remove(this);
         }
+        public static bool CheckIfContainerOnStation(Container container)
+        {
+            return containerOnStationList.Contains(container);
+        }
+        public static Container SearchBySerialNumber(string serialNumber)
+        {
+            foreach (Container container in allContainers)
+            {
+                if (container.serialNumber == serialNumber)
+                {
+                    return container;
+                }
+            }
+            return null;
+        }
         public bool IsOnStation()
         {
             return containerOnStationList.Contains(this);
@@ -56,7 +73,7 @@ namespace ContainerSpace
             Console.WriteLine("Cargo unloaded successfully.");
         }
 
-        public virtual void LoadCargo(double cargoWeight)
+        public virtual void LoadCargo(double cargoWeight, string productType = "default-1")
         {
             if (cargoWeight > maxLoadCapacityKg)
             {
