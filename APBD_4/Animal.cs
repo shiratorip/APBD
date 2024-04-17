@@ -8,8 +8,8 @@ namespace APBD_4
         private string category;
         private double weight;
         private string furColor;
-        private static List<Animal> animals =new List<Animal>();
-        private static int lastNumber=1;
+        private static List<Animal> animals = new List<Animal>();
+        private static int lastNumber = 1;
 
         public Animal (string name, string category, double weight, string furColor)
         {
@@ -28,7 +28,7 @@ namespace APBD_4
             return animals;
         }
 
-        public static Animal GetAnimalById(int id)
+        public static Animal? GetAnimalById(int id)
         {
             foreach (Animal animal in animals)
             {
