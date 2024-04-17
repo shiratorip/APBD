@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APBD2", "APBD2\APBD2.csproj", "{93BDCC60-A9D3-4792-ADE3-E4939842C2D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APBD2", "APBD2\APBD2.csproj", "{93BDCC60-A9D3-4792-ADE3-E4939842C2D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APBD_4", "APBD_4\APBD_4.csproj", "{70770B5A-C36D-4F10-8FF0-39D9DDF8822C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{93BDCC60-A9D3-4792-ADE3-E4939842C2D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93BDCC60-A9D3-4792-ADE3-E4939842C2D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93BDCC60-A9D3-4792-ADE3-E4939842C2D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70770B5A-C36D-4F10-8FF0-39D9DDF8822C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70770B5A-C36D-4F10-8FF0-39D9DDF8822C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70770B5A-C36D-4F10-8FF0-39D9DDF8822C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70770B5A-C36D-4F10-8FF0-39D9DDF8822C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
